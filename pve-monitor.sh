@@ -58,7 +58,7 @@ function MessageAddHostDiskInfo () {
                   HDDdrives+=($drive)
                   #echo $drive" is HDD"
           fi
-      
+
     done
 
 
@@ -175,17 +175,19 @@ function MessageAddHostSWRaidInfo () {
 #
 #       # Get last time
        POOLLASTSCRUB=$(echo "$ZPOOLSTATUS" | grep "scan:" | grep "scrub" | rev | cut -f1-5 -d ' ' | rev)
-#       # convert scrub date to unix time
-       LASTSCRUB=$(date -d"$POOLLASTSCRUB" +%s)
-#       # Add N days to last time
-       NEXTSCRUB=$(date -d "$(date -d @$LASTSCRUB)+$DAYS days" +"%s")
-#
-#       # compare current time
-       if [ "$NOW" -ge "$NEXTSCRUB" ]; then
-         Message="$Message Запуск SCRUB."
-         /sbin/zpool scrub $pool
-       else
-         Message="$Message SCRUB запланирован на $(date -d @$NEXTSCRUB "+%d-%m-%Y")."
+       if [[ ! -z  $POOLLASTSCRUB ]]; then
+         #       # convert scrub date to unix time
+         LASTSCRUB=$(date -d"$POOLLASTSCRUB" +%s)
+  #       # Add N days to last time
+         NEXTSCRUB=$(date -d "$(date -d @$LASTSCRUB)+$DAYS days" +"%s")
+  #
+  #       # compare current time
+         if [ "$NOW" -ge "$NEXTSCRUB" ]; then
+           Message="$Message Запуск SCRUB."
+           /sbin/zpool scrub $pool
+         else
+           Message="$Message SCRUB запланирован на $(date -d @$NEXTSCRUB "+%d-%m-%Y")."
+         fi
        fi
 
      done
