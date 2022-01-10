@@ -48,8 +48,6 @@ function MessageAddHostDiskInfo () {
   if (( ${#drives[@]} != 0 )); then
     for drive in "${drives[@]}"
     do
-      if [[ -f "/dev/$drive" ]] && [[ ! -z "$drive" ]]
-       then
           if [[ $(smartctl -a /dev/$drive | grep "Rotation") == *"Solid"* ]]; then
                   SSDdrives+=($drive)
                   #echo $drive" is SSD"
@@ -60,7 +58,7 @@ function MessageAddHostDiskInfo () {
                   HDDdrives+=($drive)
                   #echo $drive" is HDD"
           fi
-      fi
+      
     done
 
 
