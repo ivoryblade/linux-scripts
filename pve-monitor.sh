@@ -167,14 +167,15 @@ function MessageAddHostSWRaidInfo () {
        if [ $(echo "$ZPOOLSTATUS" | egrep -c "none requested") -ge 1 ]; then
          warnings=1
          Scrub="🚧 Ошибка SCRUB: Необходимо вручную в первый раз запустить \"zpool scrub $pool\"."
-         continue
+         #continue
        fi
        if [ $(echo "$ZPOOLSTATUS" | egrep -c "scrub in progress") -ge 1 ]; then
          Scrub="SCRUB уже в процессе."
-         continue
+         #continue
        elif [ $(echo "$ZPOOLSTATUS" | egrep -c "resilver") -ge 1 ]; then
+         warnings=1
          Scrub="Resilver в процессе."
-         continue
+         #continue
        fi
 #
 #       # Get last time
