@@ -167,7 +167,7 @@ function MessageAddHostSWRaidInfo () {
        #Message="$Message "
        if [ $(echo "$ZPOOLSTATUS" | egrep -c "none requested") -ge 1 ]; then
          warnings=1
-         Scrub="🚧 Ошибка SCRUB: Необходимо вручную в первый раз запустить \"zpool scrub $pool\"."
+         Scrub="Ошибка SCRUB: Необходимо вручную в первый раз запустить \"zpool scrub $pool\"."
          icon="🚧"
        fi
        if [ $(echo "$ZPOOLSTATUS" | egrep -c "scrub in progress") -ge 1 ]; then
