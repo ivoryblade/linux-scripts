@@ -159,7 +159,7 @@ function MessageAddHostSWRaidInfo () {
 #     LANG=C
      NOW=$(date +%s)
      POOLS=$(zpool list -H -o name)
-     for pool in "$POOLS"
+     for pool in "${POOLS[@]}"
      do
        Message="$Message\n <code>$pool:</code>"
        ZPOOLSTATUS=$(/sbin/zpool status $pool)
