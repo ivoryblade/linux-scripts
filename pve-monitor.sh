@@ -161,9 +161,9 @@ function MessageAddHostSWRaidInfo () {
      POOLS=($(zpool list -H -o name))
      for pool in "${POOLS[@]}"
      do
-       Message="$Message\n <code>$pool:</code>"
+       #Message="$Message\n <code>$pool:</code>"
        ZPOOLSTATUS=$(/sbin/zpool status $pool)
-       Message="$Message "
+       #Message="$Message "
        if [ $(echo "$ZPOOLSTATUS" | egrep -c "none requested") -ge 1 ]; then
          warnings=1
          Scrub="🚧 Ошибка SCRUB: Необходимо вручную в первый раз запустить \"zpool scrub $pool\"."
@@ -193,7 +193,7 @@ function MessageAddHostSWRaidInfo () {
            Scrub="SCRUB запланирован на $(date -d @$NEXTSCRUB "+%d-%m-%Y")."
          fi
        fi
-       Message="$Message\n<code>$(printf "%-4s %-16s %-8s %-8s %-30s" " " "$pool" "$(echo "$ZPOOLSTATUS" | grep state: | awk '{print $NF}')" "$(/sbin/zpool list -H -o capacity $pool)" "$Scrub")</code>\n"
+       Message="$Message<code>$(printf "%-4s %-16s %-8s %-8s %-30s" " " "$pool" "$(echo "$ZPOOLSTATUS" | grep state: | awk '{print $NF}')" "$(/sbin/zpool list -H -o capacity $pool)" "$Scrub")</code>\n"
      done
 
 }
