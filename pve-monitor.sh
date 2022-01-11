@@ -195,7 +195,7 @@ function MessageAddHostSWRaidInfo () {
            Scrub="SCRUB запланирован на $(date -d @$NEXTSCRUB "+%d-%m-%Y")."
          fi
        fi
-       Message="$Message<code>$(printf "%-4s %-16s %-8s %-8s %-30s" "🚧" "$pool" "$(echo "$ZPOOLSTATUS" | grep state: | awk '{print $NF}')" "$(/sbin/zpool list -H -o capacity $pool)" "$Scrub")</code>\n"
+       Message="$Message<code>$(printf "%-4s %-16s %-8s %-8s %-30s" "$(echo $icon)" "$pool" "$(echo "$ZPOOLSTATUS" | grep state: | awk '{print $NF}')" "$(/sbin/zpool list -H -o capacity $pool)" "$Scrub")</code>\n"
      done
 
 }
