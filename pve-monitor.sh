@@ -168,8 +168,11 @@ function MessageAddHostSWRaidInfo () {
          Message="$Message 🚧 Ошибка SCRUB: Необходимо вручную в первый раз запустить \"zpool scrub $pool\"."
          continue
        fi
-       if [ $(echo "$ZPOOLSTATUS" | egrep -c "scrub in progress|resilver") -ge 1 ]; then
+       if [ $(echo "$ZPOOLSTATUS" | egrep -c "scrub in progress") -ge 1 ]; then
          Message="$Message SCRUB уже в процессе."
+         continue
+       elif [ $(echo "$ZPOOLSTATUS" | egrep -c "resilver") -ge 1 ]; then
+         Message="$Message Resilver в процессе."
          continue
        fi
 #
